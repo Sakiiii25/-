@@ -15,14 +15,14 @@ const copyBtn = document.getElementById('copy-btn');
 // どういう雰囲気（tone）で、どういうSNS（platform）かによって文章を変えます
 const templates = {
   twitter: {
-    pop: "『{topic}』めっちゃ良すぎた〜！！😆✨ テンション上がる〜！ 共有したくてつぶやいちゃう！ #おすすめ #日常",
-    cool: "【記録】{topic}。\n無駄がなくて最高。こういう時間を大切にしていきたい。\n#ライフスタイル #記録",
-    cute: "きいてきいて〜💕\n{topic}\nほんとに幸せな気分になっちゃった…えへへ🎀\n#かわちい #幸せ"
+    pop: "『{topic}』……それは、私が美しいと感じた刹那。🥀\nこの感動を、夜の闇にそっと囁きます。\n#おすすめ #静かな夜空",
+    cool: "【記録】{topic}。\n一切の無駄がない、洗練された時間。\nこの暗闇の中で、心だけが静かに燃えている。\n#ライフスタイル #漆黒",
+    cute: "聞いてね、夜の妖精さんたち🦋\n{topic}……\nふわふわで、ちょっとだけミステリアスな魔法にかかっちゃったみたい🌙\n#魔法使い #お気に入り"
   },
   instagram: {
-    pop: "🌟🌟🌟🌟🌟\n今日は『{topic}』！\n\nもう本当に最高すぎたからみんなにもシェアするね！😆\n絶対行った方がいい（やった方がいい）やつです✨\n\nまた明日から頑張ろーっと！\n\n---\n#最高の一日 #ハッピー #おすすめスポット",
-    cool: "Moments.\n\n{topic}。\n\n静かな時間。\n研ぎ澄まされる感覚。\n\n---\n#lifestyle #chill #日常の切れ端",
-    cute: "きょうのダイアリー 🧸🤍\n\n{topic}\n\nかわいくて、幸せで、胸がいっぱいになっちゃった🎀\nまたこんども行きたいな（やりたいな）〜！💕\n\n---\n#カフェ巡り #かわいいもの好きな人と繋がりたい #今日のコーデ"
+    pop: "🥀🥀🥀\n今宵は『{topic}』……。\n\nあまりにも美しくて、言葉を失うほどでした。\nこの儚い時間を、みなさんにもシェアしますね🕸️\n\n絶対に体験するべき、甘美なひととき。\n\n---\n#素晴らしい夜 #ゴシック #おすすめスポット",
+    cool: "Fragments in the dark.\n\n{topic}。\n\n音のない空間。\n研ぎ澄まされる、闇への沈溺。\n\n---\n#lifestyle #darkness #漆黒の日常",
+    cute: "夜のダイアリー 🧸🥀\n\n{topic}\n\nちょっぴりダークで、でもかわいくて。\n胸の奥がキュンってなっちゃった🦋\nまた夜が来たら、会いにいきたいな……。\n\n---\n#秘密の場所 #ゴシックロリータ #今日のコーデ"
   }
 };
 
@@ -55,10 +55,10 @@ generateBtn.addEventListener('click', () => {
     // 画面に文章を表示する
     generatedTextArea.textContent = resultText;
 
-    // SNSとテーマに合わせたランダムな綺麗な画像を持ってくる（Picsumというサービスを使います）
-    // seedをつけることで、毎回違う画像が出ます
+    // 画像を白黒（モノクロ）にして、ゴシックな雰囲気を引き立てます
+    // ?grayscale というパス（おまじない）をつけると白黒になります
     const randomSeed = Math.floor(Math.random() * 1000);
-    generatedImg.src = `https://picsum.photos/seed/${randomSeed}/800/600`;
+    generatedImg.src = `https://picsum.photos/seed/${randomSeed}/800/600?grayscale`;
 
     // 隠していた「結果の画面」を表示する
     resultSection.classList.remove('hidden');
@@ -92,7 +92,8 @@ copyBtn.addEventListener('click', () => {
 // 読み込み中（くるくる）を始める仕組み
 function startLoading() {
   generateBtn.disabled = true; // ボタンを2回押せないようにする
-  btnText.textContent = "魔法の言葉を作っています..."; // 文字を変える
+  // ゴシックな言葉に変えます
+  btnText.textContent = "魔力を編み込んでいます..."; 
   loader.classList.remove('hidden'); // くるくるを表示する
   resultSection.classList.add('hidden'); // 結果をいったん隠す
 }
@@ -100,6 +101,7 @@ function startLoading() {
 // 読み込み中（くるくる）を終わる仕組み
 function stopLoading() {
   generateBtn.disabled = false; // ボタンをもう一度押せるようにする
-  btnText.textContent = "魔法をかける！ ✨"; // 文字を戻す
+  // 変更した文字に戻します
+  btnText.textContent = "闇の魔法をかける 🦇"; 
   loader.classList.add('hidden'); // くるくるを隠す
 }
