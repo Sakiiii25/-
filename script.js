@@ -8,8 +8,19 @@ const btnText = document.querySelector('.btn-text');
 const loader = document.querySelector('.loader');
 const resultSection = document.getElementById('result-section');
 const generatedTextArea = document.getElementById('generated-text');
-const generatedImg = document.getElementById('generated-img');
+
+// --- 追加された写真加工用の要素 ---
+const imageUpload = document.getElementById('image-upload');
+const editorContainer = document.getElementById('editor-container');
+const imageCanvas = document.getElementById('image-canvas');
+const ctx = imageCanvas.getContext('2d'); // キャンバスに絵を描くためのペン
+const filterBtns = document.querySelectorAll('.filter-btn');
+const downloadBtn = document.getElementById('download-btn');
 const copyBtn = document.getElementById('copy-btn');
+
+// アップロードされた写真のデータを覚えておく場所
+let currentImage = null;
+let currentFilter = 'normal'; // 最初はノーマル
 
 // --- 魔法のテンプレート（文章のひな形） ---
 // どういう雰囲気（tone）で、どういうSNS（platform）かによって文章を変えます
@@ -75,18 +86,133 @@ generateBtn.addEventListener('click', () => {
     // 画面に文章を表示する
     generatedTextArea.textContent = resultText;
 
-    // 画像のURLを作成します。
-    // 今回はカラーのまま表示させるため、おまじない（?grayscale）は付けません
-    const randomSeed = Math.floor(Math.random() * 1000);
-    generatedImg.src = `https://picsum.photos/seed/${randomSeed}/800/600`;
-
     // 隠していた「結果の画面」を表示する
+    // 画像はアップロードされた時だけ表示するので、ここでは文章のエリアだけを表示します
     resultSection.classList.remove('hidden');
 
     // ボタンを元の状態に戻す
     stopLoading();
 
   }, 2500); // 2500ミリ秒 ＝ 2.5秒（3秒以内）
+});
+
+// ----------------------------------------------------
+// 写真加工の仕組み
+// ----------------------------------------------------
+
+// 1. 写真が選ばれた時（アップロードされた時）
+imageUpload.addEventListener('change', (event) => {
+  const file = event.target.files[0]; // 選ばれた一番最初のファイル
+  if (!file) return; // 何も選ばれなかったらやめる
+
+  // 画像を読み込むための仕組み（リーダー）
+  const reader = new FileReader();
+
+  // 読み込みが終わったら、画面に表示する準備をする
+  reader.onload = (e) => {
+    const img = new Image();
+    img.onload = () => {
+      // 写真を覚えておく
+      currentImage = img;
+      
+      // キャンバスを表示する
+      editorContainer.classList.remove('hidden');
+      resultSection.classList.remove('hidden'); // まだ開いていなければ開く
+      
+      // キャンバスに写真を描く（正方形にする）
+      drawImageOnCanvas();
+    };
+    img.src = e.target.result; // パソコンの中の写真のデータを渡す
+  };
+
+  reader.readAsDataURL(file); // 読み込みスタート
+});
+
+// 2. キャンバスに写真を描く（自動でSNS用の正方形に切り抜く）
+function drawImageOnCanvas() {
+  if (!currentImage) return;
+
+  // キャンバスの大きさを決める（今回は高画質にするため大きめの800px四方にします）
+  const canvasSize = 800;
+  imageCanvas.width = canvasSize;
+  imageCanvas.height = canvasSize;
+
+  // 写真の縦横を比べて、短い方に合わせて正方形の「切り取る枠」を決める
+  const minSide = Math.min(currentImage.width, currentImage.height);
+  // 真ん中から切り取るためのスタート位置を計算
+  const startX = (currentImage.width - minSide) / 2;
+  const startY = (currentImage.height - minSide) / 2;
+
+  // 一旦キャンバスを綺麗にする
+  ctx.clearRect(0, 0, canvasSize, canvasSize);
+
+  // （高度）CSSのフィルターではなく、キャンバスに直接エフェクトを焼き付ける準備
+  // これをしないと、ダウンロードした時にフィルターが反映されません
+  if (currentFilter === 'slr') {
+    ctx.filter = 'contrast(1.1) saturate(1.2)';
+  } else if (currentFilter === 'purikura') {
+    ctx.filter = 'brightness(1.2) contrast(0.9) saturate(1.3) sepia(0.2) hue-rotate(-10deg)';
+  } else {
+    ctx.filter = 'none';
+  }
+
+  // キャンバスに写真をギュッと敷き詰める（切り抜きながら）
+  ctx.drawImage(
+    currentImage, 
+    startX, startY, minSide, minSide, // 元の写真の切り取る場所
+    0, 0, canvasSize, canvasSize // キャンバスのどこに描くか
+  );
+
+  // 一眼レフ風の場合、周りを少し暗くする（ビネット効果）を足す
+  if (currentFilter === 'slr') {
+    // 真ん中が白（透明）、外側が黒いグラデーションを作る
+    const gradient = ctx.createRadialGradient(
+      canvasSize/2, canvasSize/2, canvasSize * 0.3, // 真ん中の円
+      canvasSize/2, canvasSize/2, canvasSize * 0.8  // 外側の円
+    );
+    gradient.addColorStop(0, 'rgba(0,0,0,0)'); // 真ん中は透明
+    gradient.addColorStop(1, 'rgba(0,0,0,0.4)'); // 外側は少し黒い
+
+    // 重ね塗りする
+    ctx.filter = 'none'; // グラデーションにはフィルターをかけない
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvasSize, canvasSize);
+  }
+  
+  // フィルター設定をリセットしておく
+  ctx.filter = 'none';
+}
+
+// 3. フィルターのボタンが押された時
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // 一旦すべてのボタンから「選択中（active）」のマークを外す
+    filterBtns.forEach(b => b.classList.remove('active'));
+    // 押されたボタンに「選択中」をつける
+    btn.classList.add('active');
+
+    // どのフィルターが選ばれたか覚える
+    currentFilter = btn.dataset.filter;
+
+    // 写真を描き直す
+    drawImageOnCanvas();
+  });
+});
+
+// 4. ダウンロード（保存）ボタンを押した時
+downloadBtn.addEventListener('click', () => {
+  if (!currentImage) return;
+
+  // キャンバスの中身を画像データ（URLのような形）にする
+  const dataUrl = imageCanvas.toDataURL('image/jpeg', 0.9); // 0.9は画質の綺麗さ（MAX1.0）
+
+  // 見えない「ダウンロード用のリンク（<a>タグ）」を作る
+  const link = document.createElement('a');
+  link.download = 'sns_maker_image.jpg'; // 保存されるファイルの名前
+  link.href = dataUrl;
+  
+  // その見えないリンクを自動でクリックさせる（これで保存が始まります）
+  link.click();
 });
 
 // コピーするボタンを押したときの動き
