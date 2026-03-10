@@ -9,16 +9,20 @@
 body {
   /* ゴシックで美しいフォント（文字の形）を設定します */
   font-family: 'Cinzel', 'Noto Serif JP', serif;
-  background-color: #f7f9fc; /* 柔らかいオフホワイト（少し青みのある白） */
+  background-color: #f7f9fc;
+  /* 柔らかいオフホワイト（少し青みのある白） */
   /* オフホワイトのグラデーションで、明るく清潔感のある背景にします */
   background: linear-gradient(135deg, #f7f9fc 0%, #ffffff 100%);
-  min-height: 100vh; /* 画面の高さいっぱいにする */
+  min-height: 100vh;
+  /* 画面の高さいっぱいにする */
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* はみ出した部分を隠す */
+  overflow: hidden;
+  /* はみ出した部分を隠す */
   position: relative;
-  color: #333333; /* 文字の色を濃いグレーにして読みやすくします */
+  color: #333333;
+  /* 文字の色を濃いグレーにして読みやすくします */
 }
 
 /* -------------------------------------
@@ -26,9 +30,12 @@ body {
 -------------------------------------- */
 .bg-shape {
   position: absolute;
-  border-radius: 50%; /* まん丸にする */
-  filter: blur(80px); /* ぼやかして光のようにする */
-  z-index: 0; /* 一番後ろに置く */
+  border-radius: 50%;
+  /* まん丸にする */
+  filter: blur(80px);
+  /* ぼやかして光のようにする */
+  z-index: 0;
+  /* 一番後ろに置く */
 }
 
 .shape1 {
@@ -38,7 +45,8 @@ body {
   background: rgba(160, 200, 255, 0.2);
   top: -100px;
   left: -50px;
-  animation: float1 10s infinite alternate ease-in-out; /* ゆらゆら動かす */
+  animation: float1 10s infinite alternate ease-in-out;
+  /* ゆらゆら動かす */
 }
 
 .shape2 {
@@ -53,12 +61,23 @@ body {
 
 /* ゆらゆら動くアニメーションの作り方 */
 @keyframes float1 {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(50px, 50px) scale(1.1); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(50px, 50px) scale(1.1);
+  }
 }
+
 @keyframes float2 {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-50px, -50px) scale(0.9); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(-50px, -50px) scale(0.9);
+  }
 }
 
 /* -------------------------------------
@@ -66,21 +85,25 @@ body {
 -------------------------------------- */
 .glass-panel {
   /* 白い半透明の箱にして、クリーンな透明感を出します */
-  background: rgba(255, 255, 255, 0.85); 
-  backdrop-filter: blur(20px); /* 後ろをぼかす（すりガラス効果） */
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  /* 後ろをぼかす（すりガラス効果） */
   -webkit-backdrop-filter: blur(20px);
   /* 枠線を薄いグレーにします */
-  border: 1px solid rgba(0, 0, 0, 0.1); 
-  border-radius: 12px; /* 少し角ばった丸みにしてスタイリッシュに */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  /* 少し角ばった丸みにしてスタイリッシュに */
   padding: 40px;
   width: 90%;
   max-width: 600px;
   /* 柔らかい影をつけて、少し浮かび上がるようにします */
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05); 
-  z-index: 1; /* 背景よりも前に出す */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  z-index: 1;
+  /* 背景よりも前に出す */
   display: flex;
   flex-direction: column;
-  gap: 30px; /* 中の要素のすきま */
+  gap: 30px;
+  /* 中の要素のすきま */
 }
 
 /* 一番上のタイトル部分 */
@@ -92,7 +115,8 @@ header h1 {
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 10px;
-  letter-spacing: 2px; /* 文字の間隔を少しあける */
+  letter-spacing: 2px;
+  /* 文字の間隔を少しあける */
   /* クリーンな濃いグレーのグラデーションにします */
   background: linear-gradient(90deg, #333333, #555555);
   -webkit-background-clip: text;
@@ -101,7 +125,8 @@ header h1 {
 
 header p {
   font-size: 14px;
-  color: #666; /* 落ち着いたグレー */
+  color: #666;
+  /* 落ち着いたグレー */
 }
 
 /* 入力する部分のまとまり */
@@ -126,8 +151,10 @@ header p {
   display: flex;
   gap: 15px;
 }
+
 .form-row .form-group {
-  flex: 1; /* 横幅を均等に分ける */
+  flex: 1;
+  /* 横幅を均等に分ける */
 }
 
 /* 入力欄（テキストとリスト）の共通デザイン */
@@ -135,21 +162,29 @@ input[type="text"],
 select {
   width: 100%;
   padding: 12px 16px;
-  border-radius: 8px; /* 角を少しだけ丸く */
-  border: 1px solid rgba(0, 0, 0, 0.15); /* 薄いグレーの枠線 */
-  background: #ffffff; /* 白い背景 */
+  border-radius: 8px;
+  /* 角を少しだけ丸く */
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  /* 薄いグレーの枠線 */
+  background: #ffffff;
+  /* 白い背景 */
   font-size: 15px;
   font-family: inherit;
-  color: #333; /* 入力する文字は濃いグレー */
-  outline: none; /* クリックした時の青い枠を消す */
-  transition: all 0.3s; /* ゆっくり変化させる */
+  color: #333;
+  /* 入力する文字は濃いグレー */
+  outline: none;
+  /* クリックした時の青い枠を消す */
+  transition: all 0.3s;
+  /* ゆっくり変化させる */
 }
 
 /* 入力欄をクリックした時（フォーカス）のアクション */
 input[type="text"]:focus,
 select:focus {
-  border-color: #4A90E2; /* クリックされたら枠線を青にして目立たせる */
-  box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.1); /* 青い光の影をつける */
+  border-color: #4A90E2;
+  /* クリックされたら枠線を青にして目立たせる */
+  box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.1);
+  /* 青い光の影をつける */
 }
 
 /* -------------------------------------
@@ -167,29 +202,35 @@ select:focus {
   font-family: inherit;
   font-weight: 700;
   letter-spacing: 2px;
-  cursor: pointer; /* マウスをのせたら指マークにする */
+  cursor: pointer;
+  /* マウスをのせたら指マークにする */
   box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
   transition: all 0.3s;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px; /* 文字とぐるぐるのすきま */
+  gap: 10px;
+  /* 文字とぐるぐるのすきま */
 }
 
 /* ボタンにマウスを乗せた時 */
 .magic-btn:hover {
-  transform: translateY(-2px); /* 少し上に動かす */
+  transform: translateY(-2px);
+  /* 少し上に動かす */
   box-shadow: 0 6px 20px rgba(0, 122, 255, 0.4);
 }
+
 /* ボタンを押した時 */
 .magic-btn:active {
-  transform: translateY(1px); /* 少し下げる */
+  transform: translateY(1px);
+  /* 少し下げる */
   box-shadow: 0 2px 10px rgba(0, 122, 255, 0.3);
 }
 
 /* もう一つのボタン（コピー用） */
 .secondary-btn {
-  background: #ffffff; /* 背景を白にする */
+  background: #ffffff;
+  /* 背景を白にする */
   color: #4A90E2;
   border: 1px solid #4A90E2;
   border-radius: 8px;
@@ -201,6 +242,7 @@ select:focus {
   transition: all 0.2s;
   margin-top: 15px;
 }
+
 .secondary-btn:hover {
   background: #f0f8ff;
 }
@@ -223,7 +265,8 @@ select:focus {
 }
 
 .result-card {
-  background: rgba(255, 255, 255, 0.9); /* 白いカード */
+  background: rgba(255, 255, 255, 0.9);
+  /* 白いカード */
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 8px;
   padding: 20px;
@@ -240,12 +283,15 @@ select:focus {
 .generated-text {
   font-size: 15px;
   line-height: 1.6;
-  color: #333; /* 読みやすい濃いグレー */
-  background: rgba(245, 245, 245, 0.8); /* 薄いグレーの背景 */
+  color: #333;
+  /* 読みやすい濃いグレー */
+  background: rgba(245, 245, 245, 0.8);
+  /* 薄いグレーの背景 */
   padding: 15px;
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  white-space: pre-wrap; /* 改行をそのまま表示する */
+  white-space: pre-wrap;
+  /* 改行をそのまま表示する */
   font-family: inherit;
 }
 
@@ -254,20 +300,24 @@ select:focus {
   width: 100%;
   border-radius: 8px;
   overflow: hidden;
-  background: #eee; /* 画像が読み込まれるまでの色 */
+  background: #eee;
+  /* 画像が読み込まれるまでの色 */
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .image-container img {
   width: 100%;
   height: auto;
-  display: block; /* 余計なすきまをなくす */
-  object-fit: cover; /* 画像を綺麗にはめこむ */
+  display: block;
+  /* 余計なすきまをなくす */
+  object-fit: cover;
+  /* 画像を綺麗にはめこむ */
 }
 
 .caption-note {
   font-size: 12px;
-  color: #888; /* 目立ちすぎないグレー */
+  color: #888;
+  /* 目立ちすぎないグレー */
   margin-top: 8px;
   text-align: right;
 }
@@ -280,10 +330,14 @@ select:focus {
   height: 20px;
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  border-top-color: #fff; /* 白い線で回るようにする */
-  animation: spin 1s ease-in-out infinite; /* ずっと回し続ける */
+  border-top-color: #fff;
+  /* 白い線で回るようにする */
+  animation: spin 1s ease-in-out infinite;
+  /* ずっと回し続ける */
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
