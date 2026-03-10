@@ -178,6 +178,41 @@ select {
   /* ゆっくり変化させる */
 }
 
+/* テキスト入力欄とアイコンを重ねるための枠 */
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* 入力欄の右側にアイコン用のすきまをあける */
+.input-with-icon input[type="text"] {
+  padding-right: 45px;
+}
+
+/* 入力欄の中にあるカメラボタン */
+.inline-upload-btn {
+  position: absolute;
+  right: 10px;
+  color: #888;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+.inline-upload-btn:hover {
+  color: #4A90E2;
+  background: #f0f8ff;
+}
+
+/* 実際のファイルのinputは隠して、上のラベルをクリックさせる */
+.hidden-input {
+  display: none;
+}
+
 /* 入力欄をクリックした時（フォーカス）のアクション */
 input[type="text"]:focus,
 select:focus {
@@ -298,62 +333,12 @@ select:focus {
 /* -------------------------------------
   画像加工エリアのデザイン
 -------------------------------------- */
-.upload-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-/* アップロードボタンの見た目 */
-.upload-btn {
-  background: #f0f8ff; /* 薄い青色 */
-  color: #4A90E2; /* 爽やかな青 */
-  border: 2px dashed #4A90E2; /* 点線の大きな枠 */
-  border-radius: 12px;
-  padding: 40px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  width: 100%; /* 横幅いっぱいに広げる */
-  max-width: 400px;
-}
-.upload-btn:hover {
-  background: #e6f2ff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.15);
-}
-
-.upload-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #fff;
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  box-shadow: 0 4px 10px rgba(74, 144, 226, 0.2);
-}
-
-.upload-text {
-  text-align: center;
-  color: #4A90E2;
-}
-
-/* 実際のファイルのinputは隠して、上のラベルをクリックさせる */
-.hidden-input {
-  display: none;
-}
-
 .editor-container {
   display: flex;
   flex-direction: column;
   gap: 15px;
   align-items: center;
+  margin-top: 15px;
 }
 
 /* キャンバス（写真）の周りの枠 */
