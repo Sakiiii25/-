@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SNSメーカー 🦇</title>
+  <title>SNS文章生成メーカー</title>
 
   <!-- おしゃれなゴシック風の文字（フォント）を使うための設定（Google Fonts） -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +47,10 @@
             <select id="platform">
               <option value="twitter">X（Twitter）</option>
               <option value="instagram">Instagram</option>
+              <option value="facebook">Facebook</option>
+              <option value="tiktok">TikTok</option>
+              <option value="youtube">YouTube</option>
+              <option value="business">ビジネス用（その他）</option>
             </select>
           </div>
 
@@ -63,7 +67,7 @@
 
         <!-- 魔法をかける（生成する）ボタン -->
         <button id="generate-btn" class="magic-btn">
-          <span class="btn-text">生成する 🦇</span>
+          <span class="btn-text">生成する</span>
           <!-- 読み込み中（ぐるぐる）の表示（最初は隠しておく） -->
           <span class="loader hidden"></span>
         </button>
