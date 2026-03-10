@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>漆黒のSNSメーカー 🦇</title>
-  
+  <title>SNSメーカー 🦇</title>
+
   <!-- おしゃれなゴシック風の文字（フォント）を使うための設定（Google Fonts） -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap"
+    rel="stylesheet">
+
   <!-- デザインをつけるためのCSSファイルを読み込む -->
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  
+
   <!-- 動く背景のための見えない箱 -->
   <div class="bg-shape shape1"></div>
   <div class="bg-shape shape2"></div>
@@ -22,16 +26,16 @@
   <!-- 画面の真ん中にくるメインの箱 -->
   <div class="container glass-panel">
     <header>
-      <h1>🦇 漆黒のSNSメーカー</h1>
-      <p>闇の力で、あなたの言葉を美しく刻み込みます…</p>
+      <h1>SNS文章生成メーカー</h1>
+      <p>SNSにぴったりな文章を生成します☆</p>
     </header>
 
     <main>
       <!-- 入力する場所（フォーム） -->
       <section class="input-section">
-        
+
         <div class="form-group">
-          <label for="topic">何を世界に刻み込みますか？</label>
+          <label for="topic">どんな内容を書きますか？</label>
           <!-- 文字を入力する箱 -->
           <input type="text" id="topic" placeholder="例：静寂の中での晩餐" autocomplete="off">
         </div>
@@ -50,16 +54,16 @@
             <label for="tone">どんな雰囲気にしますか？</label>
             <!-- 雰囲気を選ぶリスト -->
             <select id="tone">
-              <option value="pop">麗しく 🥀</option>
-              <option value="cool">冷たく ⛓️</option>
-              <option value="cute">妖しく 🦋</option>
+              <option value="corporate">企業向け</option>
+              <option value="oshikatsu">推し活向け</option>
+              <option value="ai">AI風</option>
             </select>
           </div>
         </div>
 
         <!-- 魔法をかける（生成する）ボタン -->
         <button id="generate-btn" class="magic-btn">
-          <span class="btn-text">闇の魔法をかける 🦇</span>
+          <span class="btn-text">生成する 🦇</span>
           <!-- 読み込み中（ぐるぐる）の表示（最初は隠しておく） -->
           <span class="loader hidden"></span>
         </button>
@@ -68,13 +72,13 @@
       <!-- 結果が表示される場所（最初は隠しておく） -->
       <section id="result-section" class="result-section hidden">
         <div class="result-card">
-          <h3>刻まれた言葉 📜</h3>
+          <h3>書く予定のワード 📜</h3>
           <p id="generated-text" class="generated-text">ここに文章が出ます</p>
           <button id="copy-btn" class="secondary-btn">言葉を写し取る 🖋️</button>
         </div>
 
         <div class="result-card">
-          <h3>導かれた幻影 🖼️</h3>
+          <h3>🖼️</h3>
           <div class="image-container">
             <img id="generated-img" src="" alt="生成された画像">
           </div>
@@ -88,4 +92,5 @@
   <!-- 動きをつけるためのJavaScriptファイルを読み込む -->
   <script src="script.js"></script>
 </body>
+
 </html>
