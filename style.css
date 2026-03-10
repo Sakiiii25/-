@@ -308,18 +308,40 @@ select:focus {
 .upload-btn {
   background: #f0f8ff; /* 薄い青色 */
   color: #4A90E2; /* 爽やかな青 */
-  border: 2px dashed #4A90E2; /* 点線の枠 */
-  border-radius: 8px;
-  padding: 15px 30px;
+  border: 2px dashed #4A90E2; /* 点線の大きな枠 */
+  border-radius: 12px;
+  padding: 40px 20px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%; /* 横幅いっぱいに広げる */
+  max-width: 400px;
 }
 .upload-btn:hover {
   background: #e6f2ff;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.15);
+}
+
+.upload-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  box-shadow: 0 4px 10px rgba(74, 144, 226, 0.2);
+}
+
+.upload-text {
+  text-align: center;
+  color: #4A90E2;
 }
 
 /* 実際のファイルのinputは隠して、上のラベルをクリックさせる */
