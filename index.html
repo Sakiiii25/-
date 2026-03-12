@@ -32,7 +32,7 @@
 
     <main>
       <!-- 入力する場所（フォーム） -->
-      <section class="input-section">
+      <section id="input-section" class="input-section">
 
         <div class="form-group">
           <label for="topic">どんな内容を書きますか？</label>
@@ -73,6 +73,7 @@
               <option value="corporate">企業向け</option>
               <option value="oshikatsu">推し活向け</option>
               <option value="ai">AI風</option>
+              <option value="modest">控えめに</option>
             </select>
           </div>
         </div>
@@ -116,6 +117,9 @@
             <button id="download-btn" class="secondary-btn download-btn">画像を保存する 💾</button>
           </div>
         </div>
+
+        <!-- 最初から作り直す（戻る）ボタン -->
+        <button id="reset-btn" class="secondary-btn" style="width: 100%; margin-top: 20px;">🔙 最初から作り直す</button>
       </section>
 
     </main>
