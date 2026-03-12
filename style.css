@@ -486,6 +486,69 @@ select:focus {
 }
 
 /* -------------------------------------
+  プレビュー画面（最終確認）のデザイン
+-------------------------------------- */
+.post-preview-card {
+  background: #ffffff;
+  border: 1px solid #e1e8ed; /* Twitterなどに近い薄いグレー */
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 20px;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.preview-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #d1d5db; /* デフォルトのグレーアイコン */
+  margin-right: 12px;
+}
+
+.preview-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-name {
+  font-weight: bold;
+  font-size: 15px;
+  color: #14171a;
+}
+
+.preview-id {
+  font-size: 14px;
+  color: #657786;
+}
+
+.preview-text {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #14171a;
+  white-space: pre-wrap; /* 改行をそのまま表示する */
+  margin-bottom: 12px;
+}
+
+.preview-image-container {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e1e8ed;
+}
+
+.preview-image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* -------------------------------------
   履歴コーナーのデザイン
 -------------------------------------- */
 .history-section {
