@@ -90,6 +90,9 @@ generateBtn.addEventListener('click', () => {
     // 画像はアップロードされた時だけ表示するので、ここでは文章のエリアだけを表示します
     resultSection.classList.remove('hidden');
 
+    // 下の方まで自動でスクロールする
+    resultSection.scrollIntoView({ behavior: 'smooth' });
+
     // ボタンを元の状態に戻す
     stopLoading();
 
