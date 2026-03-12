@@ -17,14 +17,15 @@ body {
   /* 画面の高さいっぱいにする */
   display: flex;
   justify-content: center;
-  align-items: center;
-  overflow: auto;
-  /* はみ出した部分はスクロールできるようにする */
+  align-items: flex-start;
+  /* コンテンツが増えても上を基準にして下へ伸びるようにする */
+  overflow-y: auto;
+  /* 縦方向にスクロールできるようにする */
   position: relative;
   color: #333333;
   /* 文字の色を濃いグレーにして読みやすくします */
-  padding: 40px 0;
-  /* 上下にはみ出した時に隙間ができるようにする */
+  padding: 60px 0;
+  /* 上下に十分な隙間を作ることで、一番下までスクロールしやすくする */
 }
 
 /* -------------------------------------
@@ -98,6 +99,8 @@ body {
   padding: 40px;
   width: 90%;
   max-width: 600px;
+  margin: auto 0;
+  /* 短い時は真ん中、長い時は上下に余白を持たせる */
   /* 柔らかい影をつけて、少し浮かび上がるようにします */
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
   z-index: 1;
