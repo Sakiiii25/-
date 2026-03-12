@@ -136,8 +136,44 @@
           </div>
         </div>
 
+        <!-- プレビューへ進むボタン（新設） -->
+        <button id="go-to-preview-btn" class="primary-btn" style="width: 100%; margin-top: 30px;">🚀 この文章・画像で投稿へ進む</button>
+
         <!-- 最初から作り直す（戻る）ボタン -->
-        <button id="reset-btn" class="secondary-btn" style="width: 100%; margin-top: 20px;">🔙 最初から作り直す</button>
+        <button id="reset-btn" class="secondary-btn" style="width: 100%; margin-top: 15px;">🔙 最初から作り直す</button>
+      </section>
+
+      <!-- ✨ プレビュー画面・最終確認（新設） ✨ -->
+      <section id="preview-section" class="glass-panel hidden">
+        <h2>投稿のプレビュー 👀</h2>
+        <p class="section-description">実際に投稿した時のイメージです（※各SNS風の簡易表示です）</p>
+
+        <!-- 本物っぽい投稿プレビュー枠 -->
+        <div id="sns-preview-card" class="post-preview-card">
+          <div class="preview-header">
+            <div class="preview-avatar"></div>
+            <div class="preview-user-info">
+              <span class="preview-name">あなたのお名前</span>
+              <span class="preview-id">@your_account_id</span>
+            </div>
+          </div>
+          <div class="preview-content">
+            <p id="preview-text" class="preview-text">ここにプレビュー文章が出ます</p>
+            <div id="preview-image-container" class="preview-image-container hidden">
+              <img id="preview-image" src="" alt="プレビュー画像">
+            </div>
+          </div>
+        </div>
+
+        <p class="caption-note" style="margin-top: 20px;">問題なければ、下書き保存か送信に進んでください。</p>
+
+        <div class="button-group" style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">
+          <button id="draft-btn" class="secondary-btn" style="width: 100%; margin: 0; background-color: #f8f9fa;">💾 文章をコピー＆画像を保存（下書き用）</button>
+          
+          <button id="share-btn" class="primary-btn" style="width: 100%; margin: 0; background: linear-gradient(135deg, #1DA1F2 0%, #007bb5 100%);">📤 共有メニューから直接送信（シェア）する</button>
+
+          <button id="back-to-result-btn" class="secondary-btn" style="width: 100%; margin: 0; margin-top: 10px; border: none; background: transparent; text-decoration: underline;">🔙 やっぱり文章や画像を直す</button>
+        </div>
       </section>
 
       <!-- 履歴セクション（入力画面側に表示） -->

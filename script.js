@@ -27,6 +27,16 @@ const resetBtn = document.getElementById('reset-btn');
 const historyList = document.getElementById('history-list');
 const clearHistoryBtn = document.getElementById('clear-history-btn');
 
+// プレビュー用の要素
+const goToPreviewBtn = document.getElementById('go-to-preview-btn');
+const previewSection = document.getElementById('preview-section');
+const previewText = document.getElementById('preview-text');
+const previewImage = document.getElementById('preview-image');
+const previewImageContainer = document.getElementById('preview-image-container');
+const draftBtn = document.getElementById('draft-btn');
+const shareBtn = document.getElementById('share-btn');
+const backToResultBtn = document.getElementById('back-to-result-btn');
+
 // アップロードされた写真のデータを覚えておく場所
 let currentImage = null;
 let currentFilter = 'normal'; // 最初はノーマル
@@ -242,8 +252,9 @@ resetBtn.addEventListener('click', () => {
   // 戻る前に、今の状態を履歴に保存しておく
   saveToHistory();
 
-  // 結果エリアを隠して、入力エリアを再表示する
+  // 結果エリアとプレビューエリアを隠して、入力エリアを再表示する
   resultSection.classList.add('hidden');
+  previewSection.classList.add('hidden'); // 追加
   inputSection.classList.remove('hidden');
   
   // 写真の状態をリセットする
@@ -392,6 +403,104 @@ downloadBtn.addEventListener('click', () => {
   
   // ダウンロードしたタイミングでも履歴に保存する
   saveToHistory();
+});
+
+// ----------------------------------------------------
+// プレビューと送信の機能
+// ----------------------------------------------------
+
+// プレビュー画面へ進むボタン
+goToPreviewBtn.addEventListener('click', () => {
+  // 結果画面を隠して、プレビュー画面を出す
+  resultSection.classList.add('hidden');
+  previewSection.classList.remove('hidden');
+
+  // 作った文章をプレビューの中にセットする
+  previewText.textContent = generatedTextArea.textContent;
+
+  // 写真があればプレビューの中にもセットする
+  if (currentImage && !editorContainer.classList.contains('hidden')) {
+    const dataUrl = imageCanvas.toDataURL('image/jpeg', 0.9);
+    previewImage.src = dataUrl;
+    previewImageContainer.classList.remove('hidden');
+  } else {
+    // 写真がなければ枠ごと隠す
+    previewImageContainer.classList.add('hidden');
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// やっぱり直す（プレビューから結果画面に戻る）ボタン
+backToResultBtn.addEventListener('click', () => {
+  previewSection.classList.add('hidden');
+  resultSection.classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// 下書き保存（文章コピー＆画像ダウンロード）ボタン
+draftBtn.addEventListener('click', () => {
+  // 1. 文章をコピーする
+  const textToCopy = previewText.textContent;
+  navigator.clipboard.writeText(textToCopy).catch(err => console.error('コピー失敗:', err));
+
+  // 2. 写真があれば保存（ダウンロード）する
+  if (currentImage && !editorContainer.classList.contains('hidden')) {
+    const dataUrl = imageCanvas.toDataURL('image/jpeg', 0.9);
+    const link = document.createElement('a');
+    link.download = 'sns_maker_draft_image.jpg';
+    link.href = dataUrl;
+    link.click();
+  }
+
+  // 3. 履歴に保存する
+  saveToHistory();
+
+  // 4. お知らせ
+  const originalText = draftBtn.textContent;
+  draftBtn.textContent = "✅ コピー＆保存しました！（好きなアプリに貼り付けてください）";
+  setTimeout(() => {
+    draftBtn.textContent = originalText;
+  }, 3000);
+});
+
+// 直接送信（シェア）ボタン
+shareBtn.addEventListener('click', async () => {
+  const textToShare = previewText.textContent;
+  
+  // スマホのシェア機能が使えるかどうかチェック
+  if (navigator.share) {
+    try {
+      const shareData = {
+        title: 'SNS Makerからの投稿',
+        text: textToShare
+      };
+
+      // 画像も一緒にシェアできる環境なら挑戦する
+      if (currentImage && !editorContainer.classList.contains('hidden')) {
+        // キャンバスの画像をFileオブジェクトに変換する処理
+        imageCanvas.toBlob(async (blob) => {
+          const file = new File([blob], 'sns_image.jpg', { type: 'image/jpeg' });
+          
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            shareData.files = [file];
+          }
+          await navigator.share(shareData);
+          saveToHistory(); // シェア成功時
+        }, 'image/jpeg', 0.9);
+      } else {
+        // テキストだけでシェア
+        await navigator.share(shareData);
+        saveToHistory(); // シェア成功時
+      }
+      
+    } catch (err) {
+      console.log('シェアがキャンセルされたか失敗しました', err);
+    }
+  } else {
+    // シェア機能が使えないパソコン等の場合
+    alert("お使いのブラウザは直接共有機能に対応していません。\n「下書きに保存」ボタンでコピーしてご利用ください。");
+  }
 });
 
 // ----------------------------------------------------
