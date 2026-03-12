@@ -91,7 +91,10 @@
         <div class="result-card">
           <h3>書く予定のワード 📜</h3>
           <p id="generated-text" class="generated-text">ここに文章が出ます</p>
-          <button id="copy-btn" class="secondary-btn">文章をコピー 🖋️</button>
+          <div class="button-group" style="display: flex; gap: 10px; margin-top: 15px;">
+            <button id="copy-btn" class="secondary-btn" style="flex: 1; margin-top: 0;">文章をコピー 🖋️</button>
+            <button id="remake-btn" class="secondary-btn" style="flex: 1; margin-top: 0;">🔄 別の文章を作り直す</button>
+          </div>
         </div>
 
         <div class="result-card">
@@ -135,6 +138,18 @@
 
         <!-- 最初から作り直す（戻る）ボタン -->
         <button id="reset-btn" class="secondary-btn" style="width: 100%; margin-top: 20px;">🔙 最初から作り直す</button>
+      </section>
+
+      <!-- 履歴セクション（入力画面側に表示） -->
+      <section id="history-section" class="history-section">
+        <div class="history-header">
+          <h3>📝 過去の作成履歴</h3>
+          <button id="clear-history-btn" class="clear-btn">すべて消去</button>
+        </div>
+        <div id="history-list" class="history-list">
+          <!-- ここにJavaScriptで履歴が追加されていきます -->
+          <p class="no-history">まだ履歴はありません</p>
+        </div>
       </section>
 
     </main>
