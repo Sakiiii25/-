@@ -484,3 +484,102 @@ select:focus {
     transform: rotate(360deg);
   }
 }
+
+/* -------------------------------------
+  履歴コーナーのデザイン
+-------------------------------------- */
+.history-section {
+  margin-top: 40px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.history-header h3 {
+  font-size: 16px;
+  color: #555;
+}
+
+.clear-btn {
+  background: none;
+  border: none;
+  color: #e74c3c; /* 赤色で注意喚起 */
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.clear-btn:hover {
+  color: #c0392b;
+}
+
+.no-history {
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  padding: 20px 0;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 300px;
+  overflow-y: auto; /* 履歴が増えたらここだけスクロールできるようにする */
+  padding-right: 5px;
+}
+
+/* 履歴1件ごとのカード */
+.history-item {
+  display: flex;
+  gap: 15px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.2s;
+  align-items: center;
+}
+
+.history-item:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+/* 履歴のサムネイル写真 */
+.history-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  object-fit: cover;
+  background: #eee;
+  flex-shrink: 0; /* 写真が潰れないようにする */
+}
+
+/* 履歴のテキスト部分 */
+.history-text {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.4;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* はみ出した文章は「...」で3行で省略する */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.history-date {
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 4px;
+  display: block;
+}
