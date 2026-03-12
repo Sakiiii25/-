@@ -488,14 +488,32 @@ select:focus {
 /* -------------------------------------
   プレビュー画面（最終確認）のデザイン
 -------------------------------------- */
+.smartphone-frame {
+  background: #000;
+  border-radius: 40px;
+  padding: 12px 12px 24px 12px;
+  margin: 20px auto;
+  max-width: 320px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2), inset 0 0 0 4px #444;
+  position: relative;
+}
+
+.smartphone-speaker {
+  width: 60px;
+  height: 6px;
+  background: #333;
+  border-radius: 3px;
+  margin: 0 auto 12px auto;
+}
+
 .post-preview-card {
   background: #ffffff;
-  border: 1px solid #e1e8ed; /* Twitterなどに近い薄いグレー */
-  border-radius: 12px;
+  border-radius: 20px;
   padding: 16px;
-  margin-top: 20px;
   text-align: left;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
 }
 
 .preview-header {
@@ -510,6 +528,7 @@ select:focus {
   border-radius: 50%;
   background: #d1d5db; /* デフォルトのグレーアイコン */
   margin-right: 12px;
+  flex-shrink: 0;
 }
 
 .preview-user-info {
@@ -528,16 +547,24 @@ select:focus {
   color: #657786;
 }
 
+/* プレビューの中身（画像とテキスト）の親要素 */
+.preview-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
+
 .preview-text {
   font-size: 15px;
   line-height: 1.5;
   color: #14171a;
   white-space: pre-wrap; /* 改行をそのまま表示する */
-  margin-bottom: 12px;
+  margin: 0;
 }
 
 .preview-image-container {
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
   border: 1px solid #e1e8ed;
 }
@@ -546,6 +573,45 @@ select:focus {
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* ダミーのいいね・シェアアイコン */
+.preview-action-icons {
+  display: flex;
+  gap: 24px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+  color: #657786;
+  font-size: 16px;
+}
+
+/* --- SNSごとのレイアウト切り替え --- */
+
+/* Twitter風: 文章が上、画像が下 */
+.layout-twitter .preview-content {
+  flex-direction: column;
+}
+
+/* Instagram風: 画像が上、文章が下。アイコン群の位置も画像の下へ */
+.layout-instagram .preview-content {
+  flex-direction: column-reverse;
+}
+
+.layout-instagram .preview-image-container {
+  border-radius: 4px; /* インスタはカクカク */
+  border: none;
+  margin: 0 -16px; /* 枠いっぱいまで広げる */
+  width: calc(100% + 32px);
+  max-width: none;
+}
+
+.layout-instagram .preview-action-icons {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  order: -1; /* Instagram風の時はヘッダーとコンテンツの間（画像のすぐ下）に配置したいが、簡易的にここに置く */
 }
 
 /* -------------------------------------
