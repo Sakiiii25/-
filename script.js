@@ -12,6 +12,8 @@ const generatedTextArea = document.getElementById('generated-text');
 
 // --- 追加された写真加工用の要素 ---
 const imageUpload = document.getElementById('image-upload');
+const imageUploadResult = document.getElementById('image-upload-result'); // 追加
+const resultUploadContainer = document.getElementById('result-upload-container'); // 追加
 const editorContainer = document.getElementById('editor-container');
 const imageCanvas = document.getElementById('image-canvas');
 const ctx = imageCanvas.getContext('2d'); // キャンバスに絵を描くためのペン
@@ -166,6 +168,11 @@ generateBtn.addEventListener('click', () => {
     // 画像エディターは写真がない限り隠す
     if(!currentImage){
       editorContainer.classList.add('hidden');
+      resultUploadContainer.classList.remove('hidden'); // 写真がないなら大きいボタンを表示
+    } else {
+      editorContainer.classList.remove('hidden');
+      resultUploadContainer.classList.add('hidden'); // 写真があるなら大きいボタンを隠してキャンバスを表示
+      drawImageOnCanvas();
     }
 
     // 必要なら一番上にスクロールし直す（結果エリアの一番上を見るため）
@@ -183,6 +190,16 @@ resetBtn.addEventListener('click', () => {
   resultSection.classList.add('hidden');
   inputSection.classList.remove('hidden');
   
+  // 写真の状態をリセットする
+  currentImage = null;
+  imageUpload.value = '';
+  imageUploadResult.value = '';
+  const inlineBtn = document.querySelector('.inline-upload-btn');
+  if (inlineBtn) {
+    inlineBtn.style.color = '';
+    inlineBtn.style.background = '';
+  }
+  
   // 一番上にスクロールで戻る
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
@@ -191,8 +208,8 @@ resetBtn.addEventListener('click', () => {
 // 写真加工の仕組み
 // ----------------------------------------------------
 
-// 1. 写真が選ばれた時（アップロードされた時）
-imageUpload.addEventListener('change', (event) => {
+// 写真が選ばれた時（アップロードされた時）の共通アクション
+function handleImageUpload(event) {
   const file = event.target.files[0]; // 選ばれた一番最初のファイル
   if (!file) return; // 何も選ばれなかったらやめる
 
@@ -206,18 +223,30 @@ imageUpload.addEventListener('change', (event) => {
       // 写真を覚えておく
       currentImage = img;
       
-      // キャンバスを表示する
-      editorContainer.classList.remove('hidden');
-      resultSection.classList.remove('hidden'); // まだ開いていなければ開く
-      
-      // キャンバスに写真を描く（正方形にする）
-      drawImageOnCanvas();
+      // 結果画面が表示されていれば（つまり大きいボタンからアップロードした場合）
+      if (!resultSection.classList.contains('hidden')) {
+        resultUploadContainer.classList.add('hidden'); // 大きいボタンを隠す
+        editorContainer.classList.remove('hidden'); // キャンバスを表示する
+        drawImageOnCanvas();
+      } else {
+        // まだ入力画面の場合（小さいアイコンからアップロードした場合）
+        // アイコンの色を変えて「セットされたよ」とお知らせする
+        const inlineBtn = document.querySelector('.inline-upload-btn');
+        if (inlineBtn) {
+          inlineBtn.style.color = '#4A90E2';
+          inlineBtn.style.background = '#e6f2ff';
+        }
+      }
     };
     img.src = e.target.result; // パソコンの中の写真のデータを渡す
   };
 
   reader.readAsDataURL(file); // 読み込みスタート
-});
+}
+
+// どちらのボタン（入力欄のアイコン or 結果画面の大きいボタン）が押されても同じ処理をする
+imageUpload.addEventListener('change', handleImageUpload);
+imageUploadResult.addEventListener('change', handleImageUpload);
 
 // 2. キャンバスに写真を描く（自動でSNS用の正方形に切り抜く）
 function drawImageOnCanvas() {
