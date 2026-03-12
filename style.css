@@ -18,11 +18,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  /* はみ出した部分を隠す */
+  overflow: auto;
+  /* はみ出した部分はスクロールできるようにする */
   position: relative;
   color: #333333;
   /* 文字の色を濃いグレーにして読みやすくします */
+  padding: 40px 0;
+  /* 上下にはみ出した時に隙間ができるようにする */
 }
 
 /* -------------------------------------
